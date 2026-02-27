@@ -1,3 +1,6 @@
+import { describe, it, expect, beforeEach, vi } from "vitest";
+import { generateNameCombinations } from "@/lib/anthropic";
+
 // @vitest-environment node
 
 // vi.hoisted() ensures mockCreate is initialized before the mock factory runs,
@@ -11,8 +14,7 @@ vi.mock("@anthropic-ai/sdk", () => ({
   }),
 }));
 
-import { describe, it, expect, beforeEach } from "vitest";
-import { generateNameCombinations } from "@/lib/anthropic";
+
 
 // Helper: build the response shape that anthropic.messages.create returns
 function makeResponse(text: string) {
@@ -52,7 +54,7 @@ describe("generateNameCombinations", () => {
   it("passes correct model to the API", async () => {
     mockCreate.mockResolvedValueOnce(makeJsonResponse([]));
     await generateNameCombinations("A", "B");
-    expect(mockCreate.mock.calls[0][0].model).toBe("claude-sonnet-4-20250514");
+    expect(mockCreate.mock.calls[0][0].model).toBe("claude-haiku-4-5");
   });
 
   it("passes correct max_tokens to the API", async () => {
