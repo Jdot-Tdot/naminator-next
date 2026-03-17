@@ -192,3 +192,14 @@ NameCombinationSet          GeneratedName
 - **Google OAuth not working**: Make sure your redirect URI matches exactly: `http://localhost:3000/api/auth/callback/google`
 - **Database connection error**: Verify your `DATABASE_URL` includes `?sslmode=require` for Neon.
 - **Prisma client not found**: Run `npx prisma generate` after installing dependencies.
+
+## Explanation Section
+
+  Why should .env.local never be committed?
+> Because that is where all your API secrets are, you would leak the code out to github and thus anyone on the internet, and the keys could be used by parties that you would rather not use your key.
+
+  Why are GitHub Secrets safer than plain environment variables?
+> I assume it is because environment variables are easier to leak out to github (because some people might hardcode them) and if someone gets into your computer, would also be able to find them. Because Github Secrets "disappear" once you make them (aka you can't copy and paste the key) then they are safe from people just looking over your shoulder and seeing them.
+
+  What would happen if you wrote the following in your yml file? (Hardcoded DB_URL example)
+> You would leak that specific Database URL because the yml file is uploaded to github, and it would show up in the logs of the action that was ran. Basically like if you uploaded a .env file but just one specific key.
