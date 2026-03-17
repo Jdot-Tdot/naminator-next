@@ -61,7 +61,7 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4 # Has caching in it
       with:
-        node-version: 18.x
+        node-version: 15.x
         cache: 'npm'
     - run: npm ci
     - run: npm run test --if-present | tee test-results.txt
